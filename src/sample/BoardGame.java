@@ -14,6 +14,8 @@ import java.io.IOException;
 public class BoardGame extends GridPane {
 
     private Board board;
+    private double cellHeight;
+    private double cellWidth;
 
 
     public BoardGame(int size) {
@@ -33,12 +35,13 @@ public class BoardGame extends GridPane {
     public void draw() {
         this.getChildren().clear();
 
-        int height = (int) this.getPrefHeight();
-        int width = (int) this.getPrefWidth();
+        double height = this.getPrefHeight();
+        double width = this.getPrefWidth() - 120;
         int size = board.getSize();
 
-        int cellHeight = height / size;
-        int cellWidth = width / size;
+        this.cellHeight = (double) height /(double) size;
+        this.cellWidth = (double) width /(double) size;
+        int u;
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -51,6 +54,18 @@ public class BoardGame extends GridPane {
                 }
             }
         }
+    }
+    Board getBoard() {
+        return this.board;
+    }
+
+    public  double cellWidth(){
+
+        return this.cellWidth;
+    }
+    public double cellHeight(){
+       // int height = (int) this.getPrefHeight();
+        return this.cellHeight;
     }
 }
 
