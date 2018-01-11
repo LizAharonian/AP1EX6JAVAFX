@@ -1,4 +1,4 @@
-/**
+package ReversiFiles; /**
  * Created by אורי on 08/01/2018.
  */
 /**
@@ -9,12 +9,13 @@ public class Board {
     private Cell[][] board;
     private int size ;
     /**
-     * Board constructor.
+     * ReversiFiles.Board constructor.
      * creates a string sizeXsize matrix.
      */
     public Board(int size) {
         this.size = size;
         this.board = new Cell[size][size];
+        this.initialize();
     }
     /**
      * copy constructor.
@@ -58,7 +59,7 @@ public class Board {
      * @param col Column index
      * @return Cell enum - value of the the board in the given index.
      */
-    Cell getCell(int row, int col)  {
+    public Cell getCell(int row, int col)  {
         return this.board[row][col];
     }
     /**
@@ -77,7 +78,7 @@ public class Board {
      * return board size.
      * @return size - int.
      */
-    int getSize() {
+    public int getSize() {
         return this.size;
 
     }
@@ -87,7 +88,7 @@ public class Board {
      * @param col col
      * @param player White / Black
      */
-    void setCell(int row, int col, Cell player) {
+    public void setCell(int row, int col, Cell player) {
         this.board[row][col] = player;
     }
     /**

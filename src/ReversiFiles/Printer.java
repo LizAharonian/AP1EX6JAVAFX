@@ -1,9 +1,11 @@
+package ReversiFiles;
+
 import javafx.util.Pair;
 
 import java.util.List;
 
 /**
- * Printer Interface
+ * ReversiFiles.Printer Interface
  */
 public interface Printer {
     /**

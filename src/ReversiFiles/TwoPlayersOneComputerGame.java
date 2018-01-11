@@ -1,3 +1,5 @@
+package ReversiFiles;
+
 import javafx.util.Pair;
 
 import java.util.List;
@@ -16,9 +18,9 @@ public class TwoPlayersOneComputerGame implements IGame {
     private Player otherPlayer;
     private Status status;
     /**
-     * TwoPlayersOneComputerGame ctor.
+     * ReversiFiles.TwoPlayersOneComputerGame ctor.
      *
-     * @param board Board (reference)
+     * @param board ReversiFiles.Board (reference)
      */
     TwoPlayersOneComputerGame(Board board, PlayersType playersType, Printer printer){
 
@@ -44,7 +46,7 @@ public class TwoPlayersOneComputerGame implements IGame {
             this.printer.announceWhoPlayNow(currPlayer);
             List<Pair<Integer,Integer>> moves = gameLogic.possibleMoves(currPlayer.getType(), otherPlayer.getType());
             if (moves.size()==0) {
-                // No possible moves for both players. TwoPlayersOneComputerGame Over.
+                // No possible moves for both players. ReversiFiles.TwoPlayersOneComputerGame Over.
                 if (this.status == Status.NoPossibleMoves) {
                     this.printer.noPossibleMovesForBothPlayers();
                     this.status = Status.GameOver;
@@ -83,7 +85,7 @@ public class TwoPlayersOneComputerGame implements IGame {
      * two players on one machine.
      * players can be both humans or human against AIplayer.
      */
-//class TwoPlayersOneComputerGame : public IGame {
+//class ReversiFiles.TwoPlayersOneComputerGame : public ReversiFiles.IGame {
 
 
 

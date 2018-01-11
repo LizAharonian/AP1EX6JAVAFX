@@ -1,3 +1,5 @@
+package ReversiFiles;
+
 import javafx.util.Pair;
 
 import java.util.List;
@@ -10,8 +12,8 @@ public class HumanPlayer extends Player {
     private Printer printer;
 
     /**
-     * HumanPlayer ctor.
-     * @param type Board::Cell (White/Black)
+     * ReversiFiles.HumanPlayer ctor.
+     * @param type ReversiFiles.Board::Cell (White/Black)
      */
     HumanPlayer(Board.Cell type, Printer printer) {
         super(type);
@@ -20,9 +22,9 @@ public class HumanPlayer extends Player {
     /**
      * display to the human player all his possible moves and gets an input of a wished move.
      * @param options vector of possible moves.
-     * @param board Board
-     * @param currentCellType Board::Cell (White/Black)
-     * @param opponentCellType Board::Cell (White/Black)
+     * @param board ReversiFiles.Board
+     * @param currentCellType ReversiFiles.Board::Cell (White/Black)
+     * @param opponentCellType ReversiFiles.Board::Cell (White/Black)
      * @return pair<int, int> of cell in the board - the desired move of the player.
      */
     @Override

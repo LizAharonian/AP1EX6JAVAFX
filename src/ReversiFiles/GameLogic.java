@@ -1,3 +1,5 @@
+package ReversiFiles;
+
 import javafx.util.Pair;
 
 import java.util.List;
@@ -11,7 +13,7 @@ public interface GameLogic {
     /**
      * prints end stores in a array the possible moves of a player in the game.
      * @param moves pair<int, int> array that stores all the possible cells for player's next move.
-     * @param player Player (Cell enum)
+     * @param player ReversiFiles.Player (Cell enum)
      * @param opponent  Opponent (Cell enum)
      * @return possible moves array
      */
@@ -21,19 +23,19 @@ public interface GameLogic {
      * to the move (row,col).
      * @param row row
      * @param col col
-     * @param player Player (Cell enum)
+     * @param player ReversiFiles.Player (Cell enum)
      * @param opponent Opponent (Cell enum)
      */
     public boolean makeMove(int row, int col, Board.Cell player, Board.Cell opponent);
     /**
      * returns ths game of the board.
-     * @return Board
+     * @return ReversiFiles.Board
      */
 
     /**
      * returns score of current player : #cells of current player type - #cells of opponent player type.
-     * @param current Board::Cell (Black/White)
-     * @param opponent Board::Cell (Black/White)
+     * @param current ReversiFiles.Board::Cell (Black/White)
+     * @param opponent ReversiFiles.Board::Cell (Black/White)
      * @return score
      */
     public int getScores(Board.Cell current, Board.Cell opponent);

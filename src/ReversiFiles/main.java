@@ -1,3 +1,5 @@
+package ReversiFiles;
+
 /**
  * Created by אורי on 08/01/2018.
  */
