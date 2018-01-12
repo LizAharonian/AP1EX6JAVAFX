@@ -1,4 +1,4 @@
-package sample;
+package UIHandeller;
 
 public class Controller {
 }

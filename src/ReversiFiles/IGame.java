@@ -3,19 +3,12 @@ package ReversiFiles;
 import javafx.scene.paint.*;
 import javafx.util.Pair;
 
-
 /**
- * Created by lizah on 08/01/2018.
+ * IGame interface.
  */
 public interface IGame {
-
-    enum Status {Playing, NoPossibleMoves, GameOver, Player1Winns, Player2Winns, Tie,NoPossibleMovesForBothPlayers, NotValidMove}
-
-    ;
-
-    enum PlayersType {Humans}
-
-    ;
+    //enum
+    enum Status {Playing, NoPossibleMoves, GameOver, Player1Winns, Player2Winns, Tie,NoPossibleMovesForBothPlayers, NotValidMove};
 
     /**
      * run function
@@ -51,19 +44,36 @@ public interface IGame {
         }
     }
 
+    /**
+     * getGameLogic func.
+     * @return the game logic.
+     */
     GameLogic getGameLogic();
-
+    /**
+     * getOpponent func
+     * @return color of the opponent
+     */
     Color getOpponent();
-
+    /**
+     * getCurr func.
+     * @return color of curr player
+     */
     Color getCurr();
-
+    /**
+     * Swap between current player to other player.
+     */
     void switchCurrPlayer();
-
-    void setStatus(Status status);
-
-    Status getStatus();
-
+    /**
+     * playOneTurn func.
+     * @param chosenMove - chosen player move
+     * @return game status
+     */
     Status playOneTurn(Pair<Integer,Integer> chosenMove);
+    /**
+     * getScoresPlayer func.
+     * @param color - color of the player
+     * @return scores
+     */
     int getScoresPlayer(Color color);
 
 

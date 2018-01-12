@@ -114,6 +114,15 @@ public class StandartGameLogic implements GameLogic {
         return false;
     }
 
+    /**
+     * scanDirection func.
+     * @param row - row index
+     * @param col - col index
+     * @param rowDirection - direction
+     * @param colDirection - direction
+     * @param player - player color
+     * @return true or false
+     */
     boolean scanDirection(int row, int col, int rowDirection,
                                           int colDirection, Color player) {
         // a player's cell
@@ -145,8 +154,8 @@ public class StandartGameLogic implements GameLogic {
         if (this.board.getCell(row, col) != null) {
             return false;
         }
-    /* checks all 8 directions around the cell and if the direction is possible for move
-     * flip all opponent's cells. */
+         /* checks all 8 directions around the cell and if the direction is possible for move
+         * flip all opponent's cells. */
         if (checkCell(row, col, player, opponent)) {
             this.board.setCell(row, col, player);
             // up left

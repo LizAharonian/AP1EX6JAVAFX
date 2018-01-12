@@ -1,4 +1,4 @@
-package sample;
+package UIHandeller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -21,36 +21,30 @@ abstract public class Player {
         this.type = type;
     }
 
-
-
-
     /**
      * returns the player type.
-     * @return ReversiFiles.Board::Cell (Black/White)
+     * @return Color of player
      */
     Color getType() {
         return this.type;
     }
 
+    /**
+     * isValidMove func
+     * @param options - list of options
+     * @param row - row index
+     * @param col - col index
+     * @return - true or false
+     */
     abstract boolean isValidMove(List< Pair<Integer, Integer> > options, int row, int col);
 
 
-        /**
-         * Sets the type of the player
-         * @param newType ReversiFiles.Board:Cell
-         */
+    /**
+     * Sets the type of the player
+     * @param newType ReversiFiles.Board:Cell
+     */
     void setType(Color newType) {
         this.type = newType;
     }
 
-    /**
-     * display to the player all his possible moves and gets an input of a wished move.
-     * @param options vector of possible moves.
-     * @param board ReversiFiles.Board
-     * @param currentCellType ReversiFiles.Board::Cell (White/Black)
-     * @param opponentCellType ReversiFiles.Board::Cell (White/Black)
-     * @return pair<int, int> of cell in the board - the desired move of the player.
-     */
-   /* abstract Pair<Integer, Integer> getInput(List< Pair<Integer,Integer> > options, final Board board,
-                                             Board.Cell currentCellType, Board.Cell opponentCellType) throws Exception;*/
 }

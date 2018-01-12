@@ -73,8 +73,5 @@ public interface Printer {
      * invalidInputMainMenu function.
      */
      String invalidInputMainMenu();
-    /**
-     * errorConnectingToServerAndExitMsg function.
-     * @param msg - message
-     */
+
 }

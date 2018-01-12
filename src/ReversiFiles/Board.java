@@ -1,6 +1,4 @@
-package ReversiFiles; /**
- * Created by אורי on 08/01/2018.
- */
+package ReversiFiles;
 
 import javafx.scene.paint.Color;
 
@@ -24,26 +22,9 @@ public class Board {
         this.player2 = player2;
         this.initialize();
     }
-  /*  *//**
-     * copy constructor.
-     * @param board - board to copy from.
-     *//*
-    public Board(final Board boardToCopy) {
-        this.size = boardToCopy.size;
-        this.board = new Color[size][size];
-        //copy each element
-        for (int i=0; i<boardToCopy.size; i++) {
-            for (int j = 0; j<boardToCopy.size; j++){
-                this.board[i][j] = boardToCopy.board[i][j];
-            }
-        }
-    }*/
-
-    
 
     /**
      * intializes the game board to the start mode.
-     * @param size size of the board (sizeXsize)
      */
     void initialize() {
         // initializes every cell with a space.

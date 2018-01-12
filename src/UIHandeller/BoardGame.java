@@ -1,4 +1,4 @@
-package sample;
+package UIHandeller;
 
 import ReversiFiles.Board;
 import javafx.fxml.FXMLLoader;

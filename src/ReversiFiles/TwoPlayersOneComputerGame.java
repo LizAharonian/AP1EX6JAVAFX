@@ -40,17 +40,6 @@ public class TwoPlayersOneComputerGame implements IGame {
     }
 
     /**
-     * setStatus func.
-     * @param status - game status
-     */
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-    public Status getStatus() {
-        return this.status;
-    }
-
-    /**
      * runs a Reversi Game.
      */
     public void run(){

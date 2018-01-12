@@ -19,14 +19,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="sample.BoardGame" fx:id="root" spacing="10">
+      fx:controller="UIHandeller.BoardGame" fx:id="root" spacing="10">
     <VBox spacing="10">
         <Button>Start Game</Button>
         <Button>End Game</Button>
     </VBox>
 </HBox>-->
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SettingsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIHandeller.SettingsController">
    <children>
       <ColorPicker fx:id="cp1" layoutX="281.0" layoutY="113.0" prefHeight="25.0" prefWidth="150.0" />
       <ColorPicker fx:id="cp2" layoutX="283.0" layoutY="162.0" prefHeight="25.0" prefWidth="150.0" />
