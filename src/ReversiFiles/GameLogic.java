@@ -1,5 +1,6 @@
 package ReversiFiles;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface GameLogic {
      * @param opponent  Opponent (Cell enum)
      * @return possible moves array
      */
-    public List<Pair<Integer,Integer>> possibleMoves(Board.Cell player, Board.Cell opponent);
+    public List<Pair<Integer,Integer>> possibleMoves(Color player, Color opponent);
     /**
      * gets form the player his next move choice and make the changes in the board according
      * to the move (row,col).
@@ -26,7 +27,7 @@ public interface GameLogic {
      * @param player ReversiFiles.Player (Cell enum)
      * @param opponent Opponent (Cell enum)
      */
-    public boolean makeMove(int row, int col, Board.Cell player, Board.Cell opponent);
+    public boolean makeMove(int row, int col, Color player, Color opponent);
     /**
      * returns ths game of the board.
      * @return ReversiFiles.Board
@@ -38,5 +39,5 @@ public interface GameLogic {
      * @param opponent ReversiFiles.Board::Cell (Black/White)
      * @return score
      */
-    public int getScores(Board.Cell current, Board.Cell opponent);
+    public int getScores(Color current, Color opponent);
 }

@@ -1,5 +1,6 @@
 package ReversiFiles;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -11,46 +12,46 @@ public interface Printer {
     /**
      * printCurrentBoard function.
      */
-     void printCurrentBoard();
+     String printCurrentBoard();
     /**
      * printBoard function.
      * @param board - game board
      */
-     void printBoard(Board board);
+     String printBoard(Board board);
     /**
      * noPossibleMovesForBothPlayers function.
      */
-     void noPossibleMovesForBothPlayers();
+     String noPossibleMovesForBothPlayers();
     /**
      * noPossibleMovesForCurrentPlayer function.
      */
-     void noPossibleMovesForCurrentPlayer();
+     String noPossibleMovesForCurrentPlayer();
     /**
      * waitForOtherPlayerMove function.
      */
-     void waitForOtherPlayerMove();
+     String waitForOtherPlayerMove();
     /**
      * announceWinner function
      * @param board - board of game
      */
-     void announceWinner(Board board);
+     String announceWinner(Board board);
     /**
      * announceWhoPlayNow function.
      * @param currPlayer - curr player type
      */
-     void announceWhoPlayNow(Player currPlayer);
+     String announceWhoPlayNow(Player currPlayer);
     /**
      * announceWhoMadeAMove function
      * @param row - row in board
      * @param col - col in board
      * @param opponentType - black or white
      */
-     void announceWhoMadeAMove(int row, int col, Board.Cell opponentType);
+     String announceWhoMadeAMove(int row, int col, Color opponentType);
     /**
      * printPossibleMoves function
      * @param options - optional moves
      */
-     void printPossibleMoves(List<Pair<Integer, Integer>> options);
+     String printPossibleMoves(List<Pair<Integer, Integer>> options);
     /**
      * enterYourMove function
      */
@@ -58,11 +59,11 @@ public interface Printer {
     /**
      * illegalMoveInput function
      */
-     void illegalMoveInput();
+     String illegalMoveInput();
     /**
      * illegalMoveInputFormat function
      */
-     void illegalMoveInputFormat();
+     String illegalMoveInputFormat();
     /**
      * mainMenu function
      * @return
@@ -71,7 +72,7 @@ public interface Printer {
     /**
      * invalidInputMainMenu function.
      */
-     void invalidInputMainMenu();
+     String invalidInputMainMenu();
     /**
      * errorConnectingToServerAndExitMsg function.
      * @param msg - message

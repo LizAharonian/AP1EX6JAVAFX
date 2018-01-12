@@ -1,5 +1,6 @@
 package ReversiFiles;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class TwoPlayersOneComputerGame implements IGame {
         this.gameLogic = new StandartGameLogic(this.board);
         switch (playersType) {
             case Humans:
-                currPlayer = new HumanPlayer(Board.Cell.Black, printer);
-                otherPlayer = new HumanPlayer(Board.Cell.White, printer);
+               /* currPlayer = new HumanPlayer(Color.ORANGE, printer);
+                otherPlayer = new HumanPlayer(Color.BLACK, printer);*/
                 break;
         }
         status = Status.Playing;
@@ -40,7 +41,7 @@ public class TwoPlayersOneComputerGame implements IGame {
      * runs a Reversi Game.
      */
     public void run(){
-        this.printer.printCurrentBoard();
+       /* this.printer.printCurrentBoard();
         this.printer.printBoard(this.board);
         while (this.status != Status.GameOver) {
             this.printer.announceWhoPlayNow(currPlayer);
@@ -76,7 +77,7 @@ public class TwoPlayersOneComputerGame implements IGame {
                 }
             }
         }
-        this.printer.announceWinner(this.board);
+        this.printer.announceWinner(this.board);*/
     }
 
 

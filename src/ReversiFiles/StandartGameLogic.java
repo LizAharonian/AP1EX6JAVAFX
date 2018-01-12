@@ -1,5 +1,6 @@
 package ReversiFiles;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -18,13 +19,13 @@ public class StandartGameLogic implements GameLogic {
     }
     
     
-    public List<Pair<Integer,Integer>> possibleMoves(Board.Cell player, Board.Cell opponent) {
+    public List<Pair<Integer,Integer>> possibleMoves(Color player, Color opponent) {
         List<Pair<Integer,Integer>> moves = new ArrayList<Pair<Integer,Integer>>();
         int size = board.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 // checks for every Empty cell if it is a possible move for the player.
-                if (this.board.getCell(i, j) == Board.Cell.Empty) {
+                if (this.board.getCell(i, j) == null) {
                     boolean ans = checkCell(i, j, player, opponent);
                     // cell is a possible move
                     if (ans) {
@@ -38,8 +39,8 @@ public class StandartGameLogic implements GameLogic {
         return moves;
     }
 
-    boolean checkCell(int row, int col,Board.Cell player,
-                                      Board.Cell opponent) {
+    boolean checkCell(int row, int col,Color player,
+                      Color opponent) {
         int size = board.getSize();
         // empty cell has an opponent neighbor, up left direction
         if (row - 1 >= 0 && col -1 >=0 &&
@@ -98,7 +99,7 @@ public class StandartGameLogic implements GameLogic {
     }
 
     boolean scanDirection(int row, int col, int rowDirection,
-                                          int colDirection, Board.Cell player) {
+                                          int colDirection, Color player) {
         // a player's cell
         if (this.board.isIndexInBoard(row + rowDirection, col + colDirection) &&
                 this.board.getCell(row + rowDirection, col + colDirection) == player) {
@@ -106,7 +107,7 @@ public class StandartGameLogic implements GameLogic {
         }
         // empty cell
         if (this.board.isIndexInBoard(row + rowDirection, col + colDirection) &&
-                this.board.getCell(row + rowDirection, col + colDirection) == Board.Cell.Empty) {
+                this.board.getCell(row + rowDirection, col + colDirection) == null) {
             return false;
         }
         // an opponent's cell - keep checking recursively
@@ -116,8 +117,8 @@ public class StandartGameLogic implements GameLogic {
         return false;
     }
 
-    public boolean makeMove(int row, int col, Board.Cell player, Board.Cell opponent) {
-        if (this.board.getCell(row, col) != Board.Cell.Empty) {
+    public boolean makeMove(int row, int col, Color player, Color opponent) {
+        if (this.board.getCell(row, col) != null) {
             return false;
         }
     /* checks all 8 directions around the cell and if the direction is possible for move
@@ -162,7 +163,7 @@ public class StandartGameLogic implements GameLogic {
     }
 
     void flipCells(int row, int col, int rowDorection, int colDirection,
-                                      Board.Cell opponent) {
+                   Color opponent) {
         while (this.board.isIndexInBoard(row, col)) {
             if (this.board.getCell(row, col) == opponent) {
                 this.board.flipCell(row, col);
@@ -175,7 +176,7 @@ public class StandartGameLogic implements GameLogic {
     }
 
    
-    public int getScores(Board.Cell current, Board.Cell opponent) {
+    public int getScores(Color current, Color opponent) {
         int currentCunter = 0;
         int opponentCounter = 0;
         for (int i = 0; i < this.board.getSize(); i++) {

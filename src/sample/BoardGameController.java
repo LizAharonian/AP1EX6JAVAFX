@@ -1,6 +1,8 @@
 package sample;
 
 import ReversiFiles.Board;
+import ReversiFiles.ClientMessagesPrinter;
+import ReversiFiles.HumanPlayer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +30,8 @@ public class BoardGameController implements Initializable{
     private Label lblScores2;
     @FXML
     private Label lblCurrPlayer;
+    @FXML
+    private Label lblUserMessages;
 
 
     /* private double boardHeight;
@@ -37,6 +41,7 @@ public class BoardGameController implements Initializable{
     private Color player1;
     private Color Player2;
     private Color currentPlayer;
+    private ClientMessagesPrinter clientMessagesPrinter;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,13 +53,16 @@ public class BoardGameController implements Initializable{
         this.currentPlayer = player1;
 
 
-        this.boardGame = new BoardGame(size);
+        this.boardGame = new BoardGame(size, player1, Player2);
+        this.clientMessagesPrinter = new ClientMessagesPrinter(player1, Player2);
         boardGame.setPrefWidth(400);
         boardGame.setPrefHeight(400);
         /*this.boardHeight=400;
         this.boardWidth=400;*/
         root.getChildren().add(0, boardGame);
         boardGame.draw();
+        this.lblUserMessages.setText(this.clientMessagesPrinter.announceWhoPlayNow(new HumanPlayer(currentPlayer)));
+      //  this.lblUserMessages.setText();
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             double boardNewWidth = newValue.doubleValue() - 120;
            /* this.boardWidth=boardNewWidth;*/
@@ -73,6 +81,7 @@ public class BoardGameController implements Initializable{
         Stage stage = (Stage) root.getScene().getWindow();
         int x=(int)e.getX();
         int y=(int)e.getY();
+
         double cellHeight =(double) this.boardGame.cellHeight();//getHeight()/ (double)size;
         double cellWidth = (double)this.boardGame.cellWidth();// / (double)size;
         int xPos=0;
@@ -81,9 +90,10 @@ public class BoardGameController implements Initializable{
             for (int j = 0; j < size; j++) {
 
                 if (xPos<=x && x<=xPos+cellWidth &&yPos<=y && y<=yPos+cellHeight) {
-                    if (this.boardGame.getBoard().getCell(i,j) == Board.Cell.Empty) {
+                    if (this.boardGame.getBoard().getCell(i,j) == null) {
                         this.boardGame.add(new Rectangle(cellWidth, cellHeight, this.currentPlayer), j, i);
                         //todo: to be added for update board vals- important!!!
+                        //todo: check if valid option(from certein moves)
                         //this.boardGame.getBoard().setCell();
                         this.lblScores1.setText("1");
                         this.lblScores2.setText("2");

@@ -16,10 +16,15 @@ public class BoardGame extends GridPane {
     private Board board;
     private double cellHeight;
     private double cellWidth;
+    private Color player1;
+    private Color player2;
 
 
-    public BoardGame(int size) {
-        this.board = new Board(size);
+    public BoardGame(int size, Color player1, Color player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+
+        this.board = new Board(size,player1,player2);
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("ReversiBoard1.fxml"));
         fxmlLoader.setRoot(this);
@@ -45,12 +50,15 @@ public class BoardGame extends GridPane {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (board.getCell(i, j) == Board.Cell.Black) {
-                    this.add(new Rectangle(cellWidth, cellHeight, Color.WHITE), j, i);
-                } else {
+                if (board.getCell(i, j) == player1) {
+                    this.add(new Rectangle(cellWidth, cellHeight, player1), j, i);
+                } else if (board.getCell(i, j) == player2) {
 
-                    this.add(new Rectangle(cellWidth, cellHeight, Color.BLACK), j, i);
+                    this.add(new Rectangle(cellWidth, cellHeight, player2), j, i);
 
+                }else {
+                    //todo: if user checks this color we are sucks
+                    this.add(new Rectangle(cellWidth, cellHeight, Color.LAVENDER), j, i);
                 }
             }
         }

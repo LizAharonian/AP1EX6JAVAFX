@@ -5,9 +5,9 @@ package ReversiFiles;
  */
 public class main {
     public static void main(String[] args) {
-        Board board = new Board(8);
+       /* Board board = new Board(8);
         board.initialize();
         IGame game = new TwoPlayersOneComputerGame(board, IGame.PlayersType.Humans, new ConsolePrinter());
-        game.run();
+        game.run();*/
     }
 }

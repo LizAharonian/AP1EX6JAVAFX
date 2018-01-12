@@ -1,5 +1,6 @@
 package ReversiFiles;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class HumanPlayer extends Player {
      * ReversiFiles.HumanPlayer ctor.
      * @param type ReversiFiles.Board::Cell (White/Black)
      */
-    HumanPlayer(Board.Cell type, Printer printer) {
+    public HumanPlayer(Color type) {
         super(type);
-        this.printer = printer;
+        //this.printer = printer;
     }
     /**
      * display to the human player all his possible moves and gets an input of a wished move.
@@ -27,7 +28,7 @@ public class HumanPlayer extends Player {
      * @param opponentCellType ReversiFiles.Board::Cell (White/Black)
      * @return pair<int, int> of cell in the board - the desired move of the player.
      */
-    @Override
+    /*@Override
     Pair<Integer, Integer> getInput(List< Pair<Integer, Integer> > options, Board board, Board.Cell currentCellType,
                                     Board.Cell opponentCellType) throws Exception {
         this.printer.printPossibleMoves(options);
@@ -56,7 +57,7 @@ public class HumanPlayer extends Player {
             }
         }
         return new Pair(row, col);
-    }
+    }*/
 
     /**
      * Checks if a user input of a move is among the user possible moves.

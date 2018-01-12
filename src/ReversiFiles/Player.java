@@ -1,5 +1,6 @@
 package ReversiFiles;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -10,32 +11,24 @@ import java.util.List;
  */
 abstract public class Player {
     //members
-    protected Board.Cell type;
-    protected GameLogic gameLogic;
+    protected Color type;
 
     /**
      * ReversiFiles.Player c'tor
      * @param type ReversiFiles.Board::Cell - Can be Black or White.
      */
-    Player(Board.Cell type) {
+    Player(Color type) {
         this.type = type;
     }
 
-    /**
-     * ReversiFiles.Player c'tor (For AIPlayer)
-     * @param type ReversiFiles.Board::Cell - Can be Black or White.
-     * @param gameLogic ReversiFiles.GameLogic
-     */
-    public Player(Board.Cell type, GameLogic gameLogic) {
-        this.type = type;
-        this.gameLogic = gameLogic;
-    }
+
+
 
     /**
      * returns the player type.
      * @return ReversiFiles.Board::Cell (Black/White)
      */
-    Board.Cell getType() {
+    Color getType() {
         return this.type;
     }
 
@@ -43,7 +36,7 @@ abstract public class Player {
      * Sets the type of the player
      * @param newType ReversiFiles.Board:Cell
      */
-    void setType(Board.Cell newType) {
+    void setType(Color newType) {
         this.type = newType;
     }
 
@@ -55,6 +48,6 @@ abstract public class Player {
      * @param opponentCellType ReversiFiles.Board::Cell (White/Black)
      * @return pair<int, int> of cell in the board - the desired move of the player.
      */
-    abstract Pair<Integer, Integer> getInput(List< Pair<Integer,Integer> > options, final Board board,
-                                             Board.Cell currentCellType, Board.Cell opponentCellType) throws Exception;
+   /* abstract Pair<Integer, Integer> getInput(List< Pair<Integer,Integer> > options, final Board board,
+                                             Board.Cell currentCellType, Board.Cell opponentCellType) throws Exception;*/
 }
