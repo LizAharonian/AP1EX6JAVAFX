@@ -6,15 +6,15 @@
 
 <HBox fx:id="root" onMouseClicked="#btnMoveClick" spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.BoardGameController">
    <children>
-      <Pane cacheShape="false" centerShape="false" prefHeight="642.0" prefWidth="264.0">
+      <Pane cacheShape="false" centerShape="false" prefHeight="642.0" prefWidth="438.0">
          <children>
             <Label layoutX="13.0" layoutY="29.0" text="Player 1 score:" />
             <Label fx:id="lblScores1" centerShape="false" layoutX="126.0" layoutY="29.0" text="Label" />
-            <Label layoutX="16.0" layoutY="93.0" text="Player 2 score:" />
+            <Label layoutX="13.0" layoutY="95.0" text="Player 2 score:" />
             <Label fx:id="lblScores2" centerShape="false" layoutX="126.0" layoutY="95.0" text="Label" />
-            <Label layoutX="2.0" layoutY="160.0" text="Current Player:" />
+            <Label layoutX="12.0" layoutY="160.0" text="Current Player:" />
             <Label fx:id="lblCurrPlayer" layoutX="126.0" layoutY="160.0" text="Label" />
-            <Label fx:id="lblUserMessages" layoutX="2.0" layoutY="194.0" text="Label" />
+            <Label fx:id="lblUserMessages" layoutX="14.0" layoutY="194.0" text="Label" />
          </children>
       </Pane>
    </children>
