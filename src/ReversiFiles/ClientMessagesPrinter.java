@@ -84,14 +84,17 @@ public class ClientMessagesPrinter implements Printer {
 
     @Override
     public String printPossibleMoves(List<Pair<Integer, Integer>> options) {
-        int i = 0;
-        String string="";
-       // StringBuilder stringBuilder = new StringBuilder();
-        string +="Your possible moves: ";
-        string +="(" + (options.get(i).getKey() + 1) + "," + (options.get(i).getValue() + 1) + ")";
-        while (i + 1 < options.size()) {
-            i++;
-            string+=",(" + (options.get(i).getKey() + 1) + "," + (options.get(i).getValue() + 1) + ")";
+        String string = "";
+
+        if (options.size() != 0) {
+            int i = 0;
+            // StringBuilder stringBuilder = new StringBuilder();
+            string += "Your possible moves: ";
+            string += "(" + (options.get(i).getKey() + 1) + "," + (options.get(i).getValue() + 1) + ")";
+            while (i + 1 < options.size()) {
+                i++;
+                string += ",(" + (options.get(i).getKey() + 1) + "," + (options.get(i).getValue() + 1) + ")";
+            }
         }
         return string;
     }

@@ -138,6 +138,7 @@ public class BoardGameController implements Initializable{
                                 String text = this.clientMessagesPrinter.announceWinner(this.board);
 
                               this.presentAlert(text);
+                              this.lblCurrPlayer.setText("");
                                 this.lblUserMessages.setText("");
                                 break;
                             case NoPossibleMoves:
@@ -152,7 +153,7 @@ public class BoardGameController implements Initializable{
                                 break;
                             case NotValidMove:
                                 //todo: add alert;
-                                this.presentAlert("Not valid move!");
+                              //  this.presentAlert("Not valid move!");
 
                                 break;
 
