@@ -2,13 +2,13 @@ package ReversiFiles;
 
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.List;
-
 import static ReversiFiles.IGame.Status.NoPossibleMovesForBothPlayers;
 
 /**
- * Created by lizah on 08/01/2018.
+ * TwoPlayersOneComputerGame class.
+ * manages the game.
  */
 public class TwoPlayersOneComputerGame implements IGame {
 
@@ -16,17 +16,18 @@ public class TwoPlayersOneComputerGame implements IGame {
     //members
     private GameLogic gameLogic;
     private Board board;
-    //private Printer printer;
     private Player currPlayer;
     private Player otherPlayer;
     private Status status;
+
     /**
-     * ReversiFiles.TwoPlayersOneComputerGame ctor.
-     *
-     * @param board ReversiFiles.Board (reference)
+     * TwoPlayersOneComputerGame ctr
+     * @param board - game board
+     * @param player1 - color of player 1
+     * @param player2 - color of player 2
+     * @param currPlayer - color of curr player
      */
     public TwoPlayersOneComputerGame(Board board, Color player1, Color player2, Color currPlayer){
-
         this.board = board;
         this.gameLogic = new StandartGameLogic(this.board);
         this.currPlayer = new HumanPlayer(currPlayer);
@@ -34,10 +35,14 @@ public class TwoPlayersOneComputerGame implements IGame {
             this.otherPlayer = new HumanPlayer(player1);
         } else {
             this.otherPlayer = new HumanPlayer(player2);
-
         }
         status = Status.Playing;
     }
+
+    /**
+     * setStatus func.
+     * @param status - game status
+     */
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -49,50 +54,15 @@ public class TwoPlayersOneComputerGame implements IGame {
      * runs a Reversi Game.
      */
     public void run(){
-      /* this.printer.printCurrentBoard();
-        this.printer.printBoard(this.board);
-        while (this.status != Status.GameOver) {
-            this.printer.announceWhoPlayNow(currPlayer);
-            List<Pair<Integer,Integer>> moves = gameLogic.possibleMoves(currPlayer.getType(), otherPlayer.getType());
-            if (moves.size()==0) {
-                // No possible moves for both players. ReversiFiles.TwoPlayersOneComputerGame Over.
-                if (this.status == Status.NoPossibleMoves) {
-                    this.printer.noPossibleMovesForBothPlayers();
-                    this.status = Status.GameOver;
-                    break;
-                }
-                this.printer.noPossibleMovesForCurrentPlayer();
-                switchCurrPlayer();
-                this.status = Status.NoPossibleMoves;
-                continue;
-            } else {
-                this.status = Status.Playing;
-                try {
-
-
-                    Pair<Integer, Integer> chosenMove = currPlayer.getInput(moves, this.board, currPlayer.getType(), otherPlayer.getType());
-
-                this.gameLogic.makeMove(chosenMove.getKey(), chosenMove.getValue(), currPlayer.getType(), otherPlayer.getType());
-                this.printer.announceWhoMadeAMove(chosenMove.getKey(), chosenMove.getValue(), currPlayer.getType());
-                switchCurrPlayer();
-                this.printer.printCurrentBoard();
-                this.printer.printBoard(this.board);
-                if (this.board.getNumOfEmptyCells() == 0) {
-                    this.status = Status.GameOver;
-                }
-                } catch (Exception ex) {
-                    System.out.println(ex.toString());
-                }
-            }
-        }
-        this.printer.announceWinner(this.board);*/
+      throw new NotImplementedException();
     }
-    public Status playOneTurn(Pair<Integer,Integer> chosenMove){
-        //todo:
 
-        //this.printer.printCurrentBoard();
-        //this.printer.printBoard(this.board);
-//        this.printer.announceWhoPlayNow(currPlayer);
+    /**
+     * playOneTurn func.
+     * @param chosenMove - chosen player move
+     * @return game status
+     */
+    public Status playOneTurn(Pair<Integer,Integer> chosenMove){
 
         if (this.status == Status.GameOver) {
             return this.status;
@@ -101,28 +71,19 @@ public class TwoPlayersOneComputerGame implements IGame {
             if (moves.size()==0) {
                 // No possible moves for both players. ReversiFiles.TwoPlayersOneComputerGame Over.
                 if (this.status == Status.NoPossibleMoves || this.status == NoPossibleMovesForBothPlayers) {
-                    //this.printer.noPossibleMovesForBothPlayers();
                     this.status = NoPossibleMovesForBothPlayers;
                     return this.status;
                 }
-                //this.printer.noPossibleMovesForCurrentPlayer();
-
                 switchCurrPlayer();
                 this.status = Status.NoPossibleMoves;
                 return this.status;
             } else {
                 this.status = Status.Playing;
                 try {
-
-
-                    //Pair<Integer, Integer> chosenMove = currPlayer.getInput(moves, this.board, currPlayer.getType(), otherPlayer.getType());
                     if (this.currPlayer.isValidMove(moves, chosenMove.getKey(), chosenMove.getValue())) {
 
                         this.gameLogic.makeMove(chosenMove.getKey(), chosenMove.getValue(), currPlayer.getType(), otherPlayer.getType());
-                        //this.printer.announceWhoMadeAMove(chosenMove.getKey(), chosenMove.getValue(), currPlayer.getType());
                         switchCurrPlayer();
-                       // this.printer.printCurrentBoard();
-                        //this.printer.printBoard(this.board);
                         if (this.board.getNumOfEmptyCells() == 0) {
                             this.status = Status.GameOver;
                         }
@@ -136,9 +97,13 @@ public class TwoPlayersOneComputerGame implements IGame {
             }
         }
         return this.status;
-      //  this.printer.announceWinner(this.board);
-
     }
+
+    /**
+     * getScoresPlayer func.
+     * @param color - color of the player
+     * @return scores
+     */
     public int getScoresPlayer(Color color) {
         int cunter = 0;
         for (int i = 0; i < this.board.getSize(); i++) {
@@ -151,17 +116,6 @@ public class TwoPlayersOneComputerGame implements IGame {
         return cunter;
     }
 
-
-
-    /**
-     * Reversi game version:
-     * two players on one machine.
-     * players can be both humans or human against AIplayer.
-     */
-//class ReversiFiles.TwoPlayersOneComputerGame : public ReversiFiles.IGame {
-
-
-
     /**
      * Swap between current player to other player.
      */
@@ -171,12 +125,27 @@ public class TwoPlayersOneComputerGame implements IGame {
         this.otherPlayer = temp;
 
     }
+
+    /**
+     * getGameLogic func.
+     * @return the game logic.
+     */
     public GameLogic getGameLogic(){
         return this.gameLogic;
     }
+
+    /**
+     * getOpponent func
+     * @return color of the opponent
+     */
     public Color getOpponent(){
         return this.otherPlayer.getType();
     }
+
+    /**
+     * getCurr func.
+     * @return color of curr player
+     */
     public Color getCurr(){
         return this.currPlayer.getType();
     }

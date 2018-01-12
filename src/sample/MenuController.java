@@ -1,67 +1,45 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.awt.*;
-
-import java.awt.Label;
-import java.net.URL;
-import java.util.ResourceBundle;
-/*import ReversiCode.GameState;
-import ReversiCode.GuiManager;
-import ReversiCode.GuiPlayer;
-import ReversiCode.ReversiDefaultRules;*/
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
- * Created by lizah on 11/01/2018.
+ * MenuController class.
+ * manages the menu UI
  */
 public class MenuController  {
 
+    //members
     @FXML
     private Button btnStart;
-    @FXML
-    private Button btnSettings;
-   /* @FXML
-    private Label labell;*/
 
-
-
+    /**
+     * btnStartClick func.
+     * handels event of start game button click
+     */
     @FXML
     protected void btnStartClick() {
-        // btnStart.setLabel("liz");
         Stage stage = (Stage) btnStart.getScene().getWindow();
-        // stage.close();
-        // label.setText("lll");
-        // btnStart.setText("hh");
 
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGame.fxml"));
             Scene scene = new Scene(root, 700, 400);
-            //  scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            //  Start primaryStage =
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {
 
         }
-
-
     }
 
+    /**
+     * btnSettings func.
+     * handels event of settings button click
+     */
     @FXML
     protected void btnSettings() {
         try {

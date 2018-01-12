@@ -2,24 +2,31 @@ package ReversiFiles;
 
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by lizah on 08/01/2018.
+ * StandartGameLogic class.
  */
 public class StandartGameLogic implements GameLogic {
 
-//members
+    //members
     private Board board;
 
-
+    /**
+     * ctr.
+     * @param board - game board
+     */
     StandartGameLogic(Board board){
         this.board = board;
     }
-    
-    
+
+    /**
+     * possibleMoves func.
+     * @param player ReversiFiles.Player (Cell enum)
+     * @param opponent  Opponent (Cell enum)
+     * @return list of possible moves
+     */
     public List<Pair<Integer,Integer>> possibleMoves(Color player, Color opponent) {
         List<Pair<Integer,Integer>> moves = new ArrayList<Pair<Integer,Integer>>();
         int size = board.getSize();
@@ -40,6 +47,14 @@ public class StandartGameLogic implements GameLogic {
         return moves;
     }
 
+    /**
+     * checkCell func.
+     * @param row - row index
+     * @param col - col index
+     * @param player - curr player
+     * @param opponent - opp player
+     * @return if valid
+     */
     boolean checkCell(int row, int col,Color player,
                       Color opponent) {
         int size = board.getSize();
@@ -118,6 +133,14 @@ public class StandartGameLogic implements GameLogic {
         return false;
     }
 
+    /**
+     * makeMove func.
+     * @param row row - row index
+     * @param col col - col index
+     * @param player ReversiFiles.Player (Cell enum)
+     * @param opponent Opponent (Cell enum)
+     * @return if valid
+     */
     public boolean makeMove(int row, int col, Color player, Color opponent) {
         if (this.board.getCell(row, col) != null) {
             return false;
@@ -163,6 +186,14 @@ public class StandartGameLogic implements GameLogic {
         return false;
     }
 
+    /**
+     * flipCells func.
+     * @param row - row index
+     * @param col - col index
+     * @param rowDorection - direction
+     * @param colDirection - direction
+     * @param opponent - opponent color
+     */
     void flipCells(int row, int col, int rowDorection, int colDirection,
                    Color opponent) {
         while (this.board.isIndexInBoard(row, col)) {
@@ -176,7 +207,12 @@ public class StandartGameLogic implements GameLogic {
         }
     }
 
-   
+    /**
+     *
+     * @param current ReversiFiles.Board::Cell (Black/White)
+     * @param opponent ReversiFiles.Board::Cell (Black/White)
+     * @return
+     */
     public int getScores(Color current, Color opponent) {
         int currentCunter = 0;
         int opponentCounter = 0;

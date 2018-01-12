@@ -1,21 +1,27 @@
 package sample;
-        import javafx.collections.FXCollections;
-        import javafx.collections.ObservableList;
-        import javafx.fxml.FXML;
-        import javafx.fxml.FXMLLoader;
-        import javafx.fxml.Initializable;
-        import javafx.scene.Scene;
-        import javafx.scene.layout.Pane;
-        import javafx.scene.paint.Color;
-        import java.io.BufferedReader;
-        import java.io.FileOutputStream;
-        import java.io.FileReader;
-        import java.net.URL;
-        import java.util.*;
-        import javafx.scene.control.*;
-        import javafx.stage.Stage;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.net.URL;
+import java.util.*;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+/**
+ * SettingsController class.
+ * manages our setting win
+ */
 public class SettingsController implements Initializable {
+    //members
     @FXML
     private ColorPicker cp1;
     @FXML
@@ -29,6 +35,10 @@ public class SettingsController implements Initializable {
     @FXML
     private Button btnBack;
 
+    /**
+     * btnDoneClick func.
+     * saves the settings
+     */
     @FXML
     protected void btnDoneClick() {
         Color c1 = cp1.getValue();
@@ -84,6 +94,10 @@ public class SettingsController implements Initializable {
         }
     }
 
+    /**
+     * btnBackClick func.
+     * goes back to menu
+     */
     @FXML
     protected void btnBackClick() {
         try {
@@ -98,6 +112,11 @@ public class SettingsController implements Initializable {
         }
     }
 
+    /**
+     * initialize func.
+     * @param location - url obj
+     * @param resources - ResourceBundle obj
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         whoStarts.setItems(FXCollections.observableArrayList("Player 1", "Player 2"));
