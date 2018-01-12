@@ -100,7 +100,7 @@ public class TwoPlayersOneComputerGame implements IGame {
             List<Pair<Integer,Integer>> moves = gameLogic.possibleMoves(currPlayer.getType(), otherPlayer.getType());
             if (moves.size()==0) {
                 // No possible moves for both players. ReversiFiles.TwoPlayersOneComputerGame Over.
-                if (this.status == Status.NoPossibleMoves) {
+                if (this.status == Status.NoPossibleMoves || this.status == NoPossibleMovesForBothPlayers) {
                     //this.printer.noPossibleMovesForBothPlayers();
                     this.status = NoPossibleMovesForBothPlayers;
                     return this.status;
