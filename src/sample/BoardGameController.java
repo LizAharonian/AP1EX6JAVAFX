@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -51,11 +53,36 @@ public class BoardGameController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //todo: add reading settiond from file
-        this.size = 4;
-        this.player1 = Color.ORANGE;
-        this.player2 = Color.WHITE;
-        this.currentPlayer = player1;
+        // addition
+        try {
+            // input the file content to the StringBuffer "input"
+            BufferedReader file = new BufferedReader(new FileReader("src/settings.txt"));
+            String line;
+            //StringBuffer inputBuffer = new StringBuffer();
+            line = file.readLine();
+            if (line == null) {
+                throw new Exception("Empty File");
+            }
+            String settingsCategories[] = line.split(",");
+            // four settings categories: Color of player 1, Color of player 2, Start player and Board size
+            if (settingsCategories.length != 4) {
+                throw new Exception("Missing Settings");
+            }
+            // sets settings from the settings file
+            this.player1 = Color.web(settingsCategories[0]);
+            this.player2 = Color.web(settingsCategories[1]);
+            if (settingsCategories[2] == "Player 1") {
+                this.currentPlayer = player1;
+            } else {
+                this.currentPlayer = player2;
+            }
+            this.size = Integer.parseInt(settingsCategories[3]);
+            file.close();
+        } catch (Exception e) {
+            System.out.println("Problem reading file.");
+            System.exit(1);
+        }
+        // end addition
         this.board = new Board(size,player1, player2);
         this.game = new TwoPlayersOneComputerGame(board,player1, player2,currentPlayer );
 
