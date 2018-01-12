@@ -149,7 +149,8 @@ public class BoardGameController implements Initializable{
                                 this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForBothPlayers());
                                 //todo: add alert;
                                 String text1 = this.clientMessagesPrinter.announceWinner(this.board);
-                                this.presentAlert(text1);
+                                String text2 = this.clientMessagesPrinter.announceWinner(this.board);
+                                this.presentAlert(text1+" "+text2);
                                 break;
                             case NotValidMove:
                                 //todo: add alert;
