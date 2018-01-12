@@ -1,10 +1,9 @@
 package sample;
 
-import ReversiFiles.Board;
-import ReversiFiles.ClientMessagesPrinter;
-import ReversiFiles.HumanPlayer;
+import ReversiFiles.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
@@ -13,10 +12,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 import javafx.scene.control.Label;
+import javafx.util.Pair;
+
 /**
  * Created by lizah on 11/01/2018.
  */
@@ -34,38 +36,45 @@ public class BoardGameController implements Initializable{
     private Label lblUserMessages;
 
 
+
     /* private double boardHeight;
     private double boardWidth;*/
     private int size;
     private BoardGame boardGame;
     private Color player1;
-    private Color Player2;
+    private Color player2;
     private Color currentPlayer;
     private ClientMessagesPrinter clientMessagesPrinter;
+    private IGame game;
+    private Board board;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         //todo: add reading settiond from file
-        this.size = 8;
+        this.size = 4;
         this.player1 = Color.ORANGE;
-        this.Player2 = Color.WHITE;
+        this.player2 = Color.WHITE;
         this.currentPlayer = player1;
+        this.board = new Board(size,player1, player2);
+        this.game = new TwoPlayersOneComputerGame(board,player1, player2,currentPlayer );
 
 
-        this.boardGame = new BoardGame(size, player1, Player2);
-        this.clientMessagesPrinter = new ClientMessagesPrinter(player1, Player2);
+        this.boardGame = new BoardGame(board,size, player1, player2);
+        this.clientMessagesPrinter = new ClientMessagesPrinter(player1, player2);
         boardGame.setPrefWidth(400);
         boardGame.setPrefHeight(400);
-        /*this.boardHeight=400;
-        this.boardWidth=400;*/
+
         root.getChildren().add(0, boardGame);
         boardGame.draw();
-        this.lblUserMessages.setText(this.clientMessagesPrinter.announceWhoPlayNow(new HumanPlayer(currentPlayer)));
-      //  this.lblUserMessages.setText();
+        this.lblCurrPlayer.setText(this.getCurrPlayerText());
+        this.lblUserMessages.setText(this.clientMessagesPrinter.printPossibleMoves(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent())));
+        this.lblScores1.setText("0");
+        this.lblScores2.setText("0");
+
+
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             double boardNewWidth = newValue.doubleValue() - 120;
-           /* this.boardWidth=boardNewWidth;*/
             boardGame.setPrefWidth(boardNewWidth);
             boardGame.draw();
         });
@@ -84,6 +93,8 @@ public class BoardGameController implements Initializable{
 
         double cellHeight =(double) this.boardGame.cellHeight();//getHeight()/ (double)size;
         double cellWidth = (double)this.boardGame.cellWidth();// / (double)size;
+       // List<Pair<Integer,Integer>> moves = this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent());
+
         int xPos=0;
         int yPos=0;
         for (int i = 0; i < size; i++) {
@@ -91,13 +102,46 @@ public class BoardGameController implements Initializable{
 
                 if (xPos<=x && x<=xPos+cellWidth &&yPos<=y && y<=yPos+cellHeight) {
                     if (this.boardGame.getBoard().getCell(i,j) == null) {
-                        this.boardGame.add(new Rectangle(cellWidth, cellHeight, this.currentPlayer), j, i);
+                        IGame.Status status = this.game.playOneTurn(new Pair(i,j));
+                        this.boardGame.draw();
+                        switch (status) {
+                            case GameOver:
+                            case Tie:
+                                //todo: add alert;
+                                String text = this.clientMessagesPrinter.announceWinner(this.board);
+
+                              this.presentAlert(text);
+                                this.lblUserMessages.setText("");
+                                break;
+                            case NoPossibleMoves:
+                                this.presentAlert(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
+                                this.swapPlayers();
+                                break;
+                            case NoPossibleMovesForBothPlayers:
+                                this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForBothPlayers());
+                                //todo: add alert;
+                                String text1 = this.clientMessagesPrinter.announceWinner(this.board);
+                                this.presentAlert(text1);
+                                break;
+                            case NotValidMove:
+                                //todo: add alert;
+                                this.presentAlert("Not valid move!");
+
+                                break;
+
+                            case Playing:
+                                this.boardGame.add(new Rectangle(cellWidth, cellHeight, this.currentPlayer), j, i);
+                                this.swapPlayers();
+
+                                break;
+
+                        }
                         //todo: to be added for update board vals- important!!!
                         //todo: check if valid option(from certein moves)
                         //this.boardGame.getBoard().setCell();
-                        this.lblScores1.setText("1");
-                        this.lblScores2.setText("2");
-                        this.lblCurrPlayer.setText("lalalala");
+                        this.lblScores1.setText(String.valueOf(this.game.getScoresPlayer(player1)));
+                        this.lblScores2.setText(String.valueOf(this.game.getScoresPlayer(player2)));
+                        this.lblCurrPlayer.setText(this.getCurrPlayerText());
                         break;
 
                     }
@@ -111,6 +155,30 @@ public class BoardGameController implements Initializable{
 
 
     }
+
+    private void presentAlert(String text) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(text);
+
+        alert.showAndWait();
+    }
+    private void swapPlayers(){
+        this.currentPlayer = this.game.getCurr();
+        List<Pair<Integer,Integer>> moves = this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent());
+        this.lblUserMessages.setText(this.clientMessagesPrinter.printPossibleMoves(moves));
+        //this.currentPlayer = this.game.getOpponent();
+    }
+    private String getCurrPlayerText() {
+        if(currentPlayer == player1) {
+            return "Player 1";
+
+        } else  {
+            return "Player 2";
+        }
+    }
+
 
 
 }

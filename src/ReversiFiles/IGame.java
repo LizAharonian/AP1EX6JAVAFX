@@ -1,6 +1,7 @@
 package ReversiFiles;
 
 import javafx.scene.paint.*;
+import javafx.util.Pair;
 
 
 /**
@@ -8,8 +9,13 @@ import javafx.scene.paint.*;
  */
 public interface IGame {
 
-    enum Status {Playing, NoPossibleMoves, GameOver, Player1Winns, Player2Winns, Tie};
-    enum PlayersType {Humans};
+    enum Status {Playing, NoPossibleMoves, GameOver, Player1Winns, Player2Winns, Tie,NoPossibleMovesForBothPlayers, NotValidMove}
+
+    ;
+
+    enum PlayersType {Humans}
+
+    ;
 
     /**
      * run function
@@ -19,10 +25,11 @@ public interface IGame {
 
     /**
      * checkWinner function
-     * @param board  - game of board
+     *
+     * @param board - game of board
      * @return status
      */
-    static Status checkWinner(Board board, Color player1, Color player2){
+    static Status checkWinner(Board board, Color player1, Color player2) {
         int numOfWhites = 0;
         int numOfBlacks = 0;
         int size = board.getSize();
@@ -43,4 +50,21 @@ public interface IGame {
             return Status.Tie;
         }
     }
+
+    GameLogic getGameLogic();
+
+    Color getOpponent();
+
+    Color getCurr();
+
+    void switchCurrPlayer();
+
+    void setStatus(Status status);
+
+    Status getStatus();
+
+    Status playOneTurn(Pair<Integer,Integer> chosenMove);
+    int getScoresPlayer(Color color);
+
+
 }

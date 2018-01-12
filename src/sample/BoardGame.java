@@ -20,11 +20,11 @@ public class BoardGame extends GridPane {
     private Color player2;
 
 
-    public BoardGame(int size, Color player1, Color player2) {
+    public BoardGame(Board board,int size, Color player1, Color player2) {
         this.player1 = player1;
         this.player2 = player2;
 
-        this.board = new Board(size,player1,player2);
+        this.board = board;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("ReversiBoard1.fxml"));
         fxmlLoader.setRoot(this);

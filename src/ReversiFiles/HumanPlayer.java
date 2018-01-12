@@ -66,7 +66,7 @@ public class HumanPlayer extends Player {
      * @param col col
      * @return true - a possible move, else- false.
      */
-    private boolean isValidMove(List< Pair<Integer, Integer> > options, int row, int col) {
+    public boolean isValidMove(List< Pair<Integer, Integer> > options, int row, int col) {
         for (int i = 0; i < options.size(); i++) {
             // user move exists in the options vector.
             if (options.get(i).getKey() == row && options.get(i).getValue() == col) {

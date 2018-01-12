@@ -32,10 +32,13 @@ abstract public class Player {
         return this.type;
     }
 
-    /**
-     * Sets the type of the player
-     * @param newType ReversiFiles.Board:Cell
-     */
+    abstract boolean isValidMove(List< Pair<Integer, Integer> > options, int row, int col);
+
+
+        /**
+         * Sets the type of the player
+         * @param newType ReversiFiles.Board:Cell
+         */
     void setType(Color newType) {
         this.type = newType;
     }

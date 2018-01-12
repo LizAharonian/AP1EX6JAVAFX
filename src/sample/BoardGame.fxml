@@ -15,6 +15,7 @@
             <Label layoutX="2.0" layoutY="160.0" text="Current Player:" />
             <Label fx:id="lblCurrPlayer" layoutX="126.0" layoutY="160.0" text="Label" />
             <Label fx:id="lblUserMessages" layoutX="2.0" layoutY="194.0" text="Label" />
+            <Label layoutX="2.0" layoutY="234.0" text="Label" />
          </children>
       </Pane>
    </children>
