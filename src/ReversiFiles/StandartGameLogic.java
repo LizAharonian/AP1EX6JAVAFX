@@ -14,6 +14,7 @@ public class StandartGameLogic implements GameLogic {
 //members
     private Board board;
 
+
     StandartGameLogic(Board board){
         this.board = board;
     }

@@ -158,7 +158,11 @@ public class BoardGameController implements Initializable{
                                 break;
 
                             case Playing:
-                                this.boardGame.add(new Rectangle(cellWidth, cellHeight, this.currentPlayer), j, i);
+                                Rectangle rectangle = new Rectangle(cellWidth, cellHeight, this.currentPlayer);
+                                rectangle.setStroke(Color.BLACK);
+                                rectangle.setStrokeWidth(2);
+                                this.boardGame.add(rectangle, j, i);
+
                                 this.swapPlayers();
 
                                 break;

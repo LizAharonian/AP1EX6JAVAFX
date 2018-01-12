@@ -51,14 +51,31 @@ public class BoardGame extends GridPane {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (board.getCell(i, j) == player1) {
-                    this.add(new Rectangle(cellWidth, cellHeight, player1), j, i);
+
+                    Rectangle rectangle = new Rectangle(cellWidth, cellHeight, player1);
+                    rectangle.setStroke(Color.BLACK);
+                    rectangle.setStrokeWidth(2);
+                    //this.boardGame.add(rectangle, j, i);
+                    this.add(rectangle, j, i);
+
+
+                    //this.add(new Rectangle(cellWidth, cellHeight, player1), j, i);
                 } else if (board.getCell(i, j) == player2) {
 
-                    this.add(new Rectangle(cellWidth, cellHeight, player2), j, i);
+                    Rectangle rectangle = new Rectangle(cellWidth, cellHeight, player2);
+                    rectangle.setStroke(Color.BLACK);
+                    rectangle.setStrokeWidth(2);
+                    //this.boardGame.add(rectangle, j, i);
+                    this.add(rectangle, j, i);
 
                 }else {
                     //todo: if user checks this color we are sucks
-                    this.add(new Rectangle(cellWidth, cellHeight, Color.LAVENDER), j, i);
+                    Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LAVENDER);
+                    rectangle.setStroke(Color.BLACK);
+                    rectangle.setStrokeWidth(2);
+                    //this.boardGame.add(rectangle, j, i);
+                    this.add(rectangle, j, i);
+                   // this.add(new Rectangle(cellWidth, cellHeight, Color.LAVENDER), j, i);
                 }
             }
         }
