@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -66,7 +68,7 @@ public class MenuController  {
             Stage stage = (Stage) btnStart.getScene().getWindow();
 
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("sample.fxml"));
-            Scene scene = new Scene(root, 700, 400);
+            Scene scene = new Scene(root, 600, 400);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
