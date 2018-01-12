@@ -141,17 +141,20 @@ public class BoardGameController implements Initializable{
                               this.lblCurrPlayer.setText("");
                                 this.lblUserMessages.setText("");
                                 break;
+                            case NoPossibleMovesForBothPlayers:
+                                this.lblUserMessages.setText("");
+                                //todo: add alert;
+                                String text1=this.clientMessagesPrinter.noPossibleMovesForBothPlayers();
+                                String text2 = this.clientMessagesPrinter.announceWinner(this.board);
+                                // String text2 = this.clientMessagesPrinter.announceWinner(this.board);
+                                this.presentAlert(text1+ " "+text2);
+                                break;
                             case NoPossibleMoves:
+                                this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
                                 this.presentAlert(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
                                 this.swapPlayers();
                                 break;
-                            case NoPossibleMovesForBothPlayers:
-                                this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForBothPlayers());
-                                //todo: add alert;
-                                String text1 = this.clientMessagesPrinter.announceWinner(this.board);
-                                String text2 = this.clientMessagesPrinter.announceWinner(this.board);
-                                this.presentAlert(text1+" "+text2);
-                                break;
+
                             case NotValidMove:
                                 //todo: add alert;
                               //  this.presentAlert("Not valid move!");
