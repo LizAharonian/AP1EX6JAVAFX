@@ -3,6 +3,8 @@ package UIHandeller;
 import ReversiFiles.Board;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -25,6 +27,7 @@ public class BoardGame extends GridPane {
     private double cellWidth;
     private Color player1;
     private Color player2;
+    private ClickListener clickListener;
 
     /**
      * constructor.
@@ -34,10 +37,11 @@ public class BoardGame extends GridPane {
      * @param player1 - color of player 1
      * @param player2 - color of player 2
      */
-    public BoardGame(Board board, int size, Color player1, Color player2) {
+    public BoardGame(Board board, int size, Color player1, Color player2, ClickListener clickListener) {
         this.player1 = player1;
         this.player2 = player2;
         this.board = board;
+        this.clickListener = clickListener;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("ReversiBoard1.fxml"));
         fxmlLoader.setRoot(this);
@@ -156,6 +160,12 @@ public class BoardGame extends GridPane {
                     rectangle.setStrokeWidth(2);
                     this.add(rectangle, j, i);
                 }
+                BorderPane pane =new BorderPane();
+                this.add(pane, j,i);
+                final int ii =i;
+                final int jj = j;
+                pane.setOnMouseClicked(event -> {this.clickListener.clickEvent(ii,jj);});
+
             }
         }
         for (Pair<Integer, Integer> pair : possibleMoves) {
@@ -163,6 +173,13 @@ public class BoardGame extends GridPane {
             rectangle.setStroke(Color.BLACK);
             rectangle.setStrokeWidth(2);
             this.add(rectangle, pair.getValue(), pair.getKey());
+            BorderPane pane =new BorderPane();
+            this.add(pane, pair.getValue(),pair.getKey());
+            final int ii =pair.getKey();
+            final int jj = pair.getValue();
+            pane.setOnMouseClicked(event -> {this.clickListener.clickEvent(ii,jj);});
+
         }
     }
+
 }

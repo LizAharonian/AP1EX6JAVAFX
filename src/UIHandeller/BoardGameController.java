@@ -47,6 +47,7 @@ public class BoardGameController implements Initializable{
     private ClientMessagesPrinter clientMessagesPrinter;
     private IGame game;
     private Board board;
+    ClickListener clickListener;
 
     /**
      * initialize func.
@@ -58,7 +59,8 @@ public class BoardGameController implements Initializable{
         this.updateBoardByUserSettings();
         this.board = new Board(size,player1, player2);
         this.game = new TwoPlayersOneComputerGame(board,player1, player2,currentPlayer );
-        this.boardGame = new BoardGame(board,size, player1, player2);
+        this.clickListener = new ClickListener(this);
+        this.boardGame = new BoardGame(board,size, player1, player2,clickListener);
         this.clientMessagesPrinter = new ClientMessagesPrinter(player1, player2);
         boardGame.setPrefWidth(400);
         boardGame.setPrefHeight(400);
@@ -81,71 +83,49 @@ public class BoardGameController implements Initializable{
         });
     }
 
-    /**
-     * btnMoveClick func.
-     * @param e - MouseEvent obj.
-     */
-    @FXML
-    protected void btnMoveClick(MouseEvent e) {
-        Stage stage = (Stage) root.getScene().getWindow();
-        int x=(int)e.getX();
-        int y=(int)e.getY();
-        double cellHeight =(double) this.boardGame.cellHeight();
-        double cellWidth = (double)this.boardGame.cellWidth();
-        int xPos=0;
-        int yPos=0;
-        this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (xPos<=x && x<=xPos+cellWidth &&yPos<=y && y<=yPos+cellHeight) {
-                    if (this.boardGame.getBoard().getCell(i,j) == null) {
-                        IGame.Status status = this.game.playOneTurn(new Pair(i,j));
-                        //this.boardGame.draw();
-                        switch (status) {
-                            case GameOver:
-                            case Tie:
-                                this.boardGame.addWasher(i, j, currentPlayer);
-                                this.boardGame.draw();
-                                String text = this.clientMessagesPrinter.announceWinner(this.board);
-                                this.presentAlert(text);
-                                this.lblCurrPlayer.setText("");
-                                this.lblUserMessages.setText("");
-                                break;
-                            case NoPossibleMovesForBothPlayers:
-                                String text1 = this.clientMessagesPrinter.noPossibleMovesForBothPlayers();
-                                String text2 = this.clientMessagesPrinter.announceWinner(this.board);
-                                this.presentAlert(text1 + " " + text2);
-                                break;
-                            case NoPossibleMoves:
-                                this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
-                                this.presentAlert(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
-                                this.swapPlayers();
-                                this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
-                                break;
 
-                            case NotValidMove:
-                                break;
+    public void handleClick(int i, int j) {
+        if (this.boardGame.getBoard().getCell(i, j) == null) {
+            IGame.Status status = this.game.playOneTurn(new Pair(i, j));
+            //this.boardGame.draw();
+            switch (status) {
+                case GameOver:
+                case Tie:
+                    this.boardGame.addWasher(i, j, currentPlayer);
+                    this.boardGame.draw();
+                    String text = this.clientMessagesPrinter.announceWinner(this.board);
+                    this.presentAlert(text);
+                    this.lblCurrPlayer.setText("");
+                    this.lblUserMessages.setText("");
+                    break;
+                case NoPossibleMovesForBothPlayers:
+                    String text1 = this.clientMessagesPrinter.noPossibleMovesForBothPlayers();
+                    String text2 = this.clientMessagesPrinter.announceWinner(this.board);
+                    this.presentAlert(text1 + " " + text2);
+                    break;
+                case NoPossibleMoves:
+                    this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
+                    this.presentAlert(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
+                    this.swapPlayers();
+                    this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
+                    break;
 
-                            case Playing:
-                                this.boardGame.addWasher(i, j, currentPlayer);
-                                //this.boardGame.draw(possibleMoves);
-                                this.swapPlayers();
-                                this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
-                                break;
+                case NotValidMove:
+                    break;
 
-                        }
-                        this.lblScores1.setText(String.valueOf(this.game.getScoresPlayer(player1)));
-                        this.lblScores2.setText(String.valueOf(this.game.getScoresPlayer(player2)));
-                        this.lblCurrPlayer.setText(this.getCurrPlayerText());
-                        this.lblCurrPlayer.setTextFill(this.currentPlayer);
-                        break;
+                case Playing:
+                    this.boardGame.addWasher(i, j, currentPlayer);
+                    //this.boardGame.draw(possibleMoves);
+                    this.swapPlayers();
+                    this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
+                    break;
 
-                    }
-                }
-                xPos+=cellWidth;
             }
-            xPos = 0;
-            yPos+=cellHeight;
+            this.lblScores1.setText(String.valueOf(this.game.getScoresPlayer(player1)));
+            this.lblScores2.setText(String.valueOf(this.game.getScoresPlayer(player2)));
+            this.lblCurrPlayer.setText(this.getCurrPlayerText());
+            this.lblCurrPlayer.setTextFill(this.currentPlayer);
+
         }
     }
 
