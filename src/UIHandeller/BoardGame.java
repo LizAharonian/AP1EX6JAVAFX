@@ -168,17 +168,19 @@ public class BoardGame extends GridPane {
 
             }
         }
-        for (Pair<Integer, Integer> pair : possibleMoves) {
-            Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LIGHTGREEN);
-            rectangle.setStroke(Color.BLACK);
-            rectangle.setStrokeWidth(2);
-            this.add(rectangle, pair.getValue(), pair.getKey());
-            BorderPane pane =new BorderPane();
-            this.add(pane, pair.getValue(),pair.getKey());
-            final int ii =pair.getKey();
-            final int jj = pair.getValue();
-            pane.setOnMouseClicked(event -> {this.clickListener.clickEvent(ii,jj);});
+        if (possibleMoves != null) {
+            for (Pair<Integer, Integer> pair : possibleMoves) {
+                Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LIGHTGREEN);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeWidth(2);
+                this.add(rectangle, pair.getValue(), pair.getKey());
+                BorderPane pane =new BorderPane();
+                this.add(pane, pair.getValue(),pair.getKey());
+                final int ii =pair.getKey();
+                final int jj = pair.getValue();
+                pane.setOnMouseClicked(event -> {this.clickListener.clickEvent(ii,jj);});
 
+            }
         }
     }
 
