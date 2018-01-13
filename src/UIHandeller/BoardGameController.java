@@ -55,7 +55,6 @@ public class BoardGameController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         this.updateBoardByUserSettings();
         this.board = new Board(size,player1, player2);
         this.game = new TwoPlayersOneComputerGame(board,player1, player2,currentPlayer );
