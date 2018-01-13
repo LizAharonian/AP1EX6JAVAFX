@@ -137,9 +137,11 @@ public class BoardGame extends GridPane {
      */
     public void draw(List<Pair<Integer, Integer>> possibleMoves) {
         this.getChildren().clear();
-        double height = this.getPrefHeight() - 20;
+        double height = this.getPrefHeight();
         double width = this.getPrefWidth() - 120;
         int size = board.getSize();
+        this.cellHeight = (double) height / (double) size;
+        height = this.getPrefHeight() - this.cellHeight;
         this.cellHeight = (double) height / (double) size;
         this.cellWidth = (double) width / (double) size;
         for (int i = 0; i < size; i++) {
