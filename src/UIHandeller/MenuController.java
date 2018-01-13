@@ -56,4 +56,13 @@ public class MenuController  {
 
     }
 
+    @FXML
+    /**
+     * Exit from the program window.
+     */
+    protected void btnExit() {
+        Stage stage = (Stage) btnStart.getScene().getWindow();
+        stage.close();
+    }
+
 }

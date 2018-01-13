@@ -85,7 +85,7 @@ public class SettingsController implements Initializable {
         try {
             Stage stage = (Stage) btnDone.getScene().getWindow();
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            Scene scene = new Scene(root, 700, 400);
+            Scene scene = new Scene(root, 600, 400);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
@@ -103,7 +103,7 @@ public class SettingsController implements Initializable {
         try {
             Stage stage = (Stage) btnBack.getScene().getWindow();
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            Scene scene = new Scene(root, 700, 400);
+            Scene scene = new Scene(root, 600, 400);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();

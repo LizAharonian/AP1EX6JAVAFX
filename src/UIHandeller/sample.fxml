@@ -34,9 +34,9 @@
       <Label layoutX="144.0" layoutY="117.0" text="Color of player 1:" />
       <Label layoutX="144.0" layoutY="166.0" text="Color of player 2:" />
       <Label layoutX="143.0" layoutY="215.0" text="Who starts?" />
-      <Label graphicTextGap="10.0" layoutX="219.0" layoutY="33.0" text="Settings">
+      <Label graphicTextGap="10.0" layoutX="230.0" layoutY="35.0" text="Settings">
          <font>
-            <Font name="System Bold" size="41.0" />
+            <Font name="Impact" size="41.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0" startX="0.6857142857142857">

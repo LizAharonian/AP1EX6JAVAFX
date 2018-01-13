@@ -52,7 +52,7 @@ public class ClientMessagesPrinter implements Printer {
      */
     @Override
     public String noPossibleMovesForCurrentPlayer() {
-        return "No possible moves. Play passes back to the other player. ";
+        return "No possible moves. \nPlay passes back to the other player. ";
     }
     /**
      * waitForOtherPlayerMove function.

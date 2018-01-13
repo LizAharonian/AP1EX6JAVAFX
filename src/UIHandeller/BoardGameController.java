@@ -2,10 +2,14 @@ package UIHandeller;
 
 import ReversiFiles.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -33,6 +37,8 @@ public class BoardGameController implements Initializable{
     private Label lblCurrPlayer;
     @FXML
     private Label lblUserMessages;
+    @FXML
+    private Button btnEndGame;
     private int size;
     private BoardGame boardGame;
     private Color player1;
@@ -58,19 +64,21 @@ public class BoardGameController implements Initializable{
         boardGame.setPrefWidth(400);
         boardGame.setPrefHeight(400);
         root.getChildren().add(0, boardGame);
-        boardGame.draw();
+        List<Pair<Integer, Integer>> possibleMoves = this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent());
+        boardGame.draw(possibleMoves);
         this.lblCurrPlayer.setText(this.getCurrPlayerText());
-        this.lblUserMessages.setText(this.clientMessagesPrinter.printPossibleMoves(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent())));
+        this.lblCurrPlayer.setTextFill(currentPlayer);
+        this.lblUserMessages.setText("");
         this.lblScores1.setText("0");
         this.lblScores2.setText("0");
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             double boardNewWidth = newValue.doubleValue() - 120;
             boardGame.setPrefWidth(boardNewWidth);
-            boardGame.draw();
+            boardGame.draw(possibleMoves);
         });
         root.heightProperty().addListener((observable, oldValue, newValue) -> {
             boardGame.setPrefHeight(newValue.doubleValue());
-            boardGame.draw();
+            boardGame.draw(possibleMoves);
         });
     }
 
@@ -87,22 +95,24 @@ public class BoardGameController implements Initializable{
         double cellWidth = (double)this.boardGame.cellWidth();
         int xPos=0;
         int yPos=0;
+        this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (xPos<=x && x<=xPos+cellWidth &&yPos<=y && y<=yPos+cellHeight) {
                     if (this.boardGame.getBoard().getCell(i,j) == null) {
                         IGame.Status status = this.game.playOneTurn(new Pair(i,j));
-                        this.boardGame.draw();
+                        //this.boardGame.draw();
                         switch (status) {
                             case GameOver:
                             case Tie:
+                                this.boardGame.addWasher(i, j, currentPlayer);
+                                this.boardGame.draw();
                                 String text = this.clientMessagesPrinter.announceWinner(this.board);
                                 this.presentAlert(text);
                                 this.lblCurrPlayer.setText("");
                                 this.lblUserMessages.setText("");
                                 break;
                             case NoPossibleMovesForBothPlayers:
-                                this.lblUserMessages.setText("");
                                 String text1 = this.clientMessagesPrinter.noPossibleMovesForBothPlayers();
                                 String text2 = this.clientMessagesPrinter.announceWinner(this.board);
                                 this.presentAlert(text1 + " " + text2);
@@ -111,23 +121,24 @@ public class BoardGameController implements Initializable{
                                 this.lblUserMessages.setText(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
                                 this.presentAlert(this.clientMessagesPrinter.noPossibleMovesForCurrentPlayer());
                                 this.swapPlayers();
+                                this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
                                 break;
 
                             case NotValidMove:
                                 break;
 
                             case Playing:
-                                Rectangle rectangle = new Rectangle(cellWidth, cellHeight, this.currentPlayer);
-                                rectangle.setStroke(Color.BLACK);
-                                rectangle.setStrokeWidth(2);
-                                this.boardGame.add(rectangle, j, i);
+                                this.boardGame.addWasher(i, j, currentPlayer);
+                                //this.boardGame.draw(possibleMoves);
                                 this.swapPlayers();
+                                this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
                                 break;
 
                         }
                         this.lblScores1.setText(String.valueOf(this.game.getScoresPlayer(player1)));
                         this.lblScores2.setText(String.valueOf(this.game.getScoresPlayer(player2)));
                         this.lblCurrPlayer.setText(this.getCurrPlayerText());
+                        this.lblCurrPlayer.setTextFill(this.currentPlayer);
                         break;
 
                     }
@@ -160,7 +171,7 @@ public class BoardGameController implements Initializable{
             // sets settings from the settings file
             this.player1 = Color.web(settingsCategories[0]);
             this.player2 = Color.web(settingsCategories[1]);
-            if (settingsCategories[2] == "Player 1") {
+            if (settingsCategories[2].equals("Player 1")) {
                 this.currentPlayer = player1;
             } else {
                 this.currentPlayer = player2;
@@ -192,7 +203,7 @@ public class BoardGameController implements Initializable{
     private void swapPlayers(){
         this.currentPlayer = this.game.getCurr();
         List<Pair<Integer,Integer>> moves = this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent());
-        this.lblUserMessages.setText(this.clientMessagesPrinter.printPossibleMoves(moves));
+        this.lblUserMessages.setText("");
     }
 
     /**
@@ -204,6 +215,23 @@ public class BoardGameController implements Initializable{
             return "Player 1";
         } else  {
             return "Player 2";
+        }
+    }
+
+    @FXML
+    /**
+     * Go back to menu.
+     */
+    private void btnEndGameClick() {
+        try {
+            Stage stage = (Stage) btnEndGame.getScene().getWindow();
+            Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            Scene scene = new Scene(root, 600, 400);
+            stage.setTitle("Reversi Game");
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception ex) {
+
         }
     }
 }
