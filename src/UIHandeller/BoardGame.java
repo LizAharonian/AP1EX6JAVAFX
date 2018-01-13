@@ -115,7 +115,13 @@ public class BoardGame extends GridPane {
         hbox.setPrefWidth(cellWidth);
         hbox.setPrefHeight(cellHeight);
         this.add(hbox, j, i);
-        Circle circle = new Circle(cellWidth / 2 - 7, player);
+        double radius = 0.0;
+        if (cellWidth < cellHeight) {
+            radius = cellWidth / 2 - 7;
+        } else {
+            radius = cellHeight / 2 - 7;
+        }
+        Circle circle = new Circle(radius, player);
         Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.TRANSPARENT);
         rectangle.setStroke(Color.BLACK);
         rectangle.setStrokeWidth(2);

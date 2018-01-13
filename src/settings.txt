@@ -1,1 +1,1 @@
-#FFCC66,#CC3333,Player 1,8
+#B31A1A,#80B380,Player 1,8
