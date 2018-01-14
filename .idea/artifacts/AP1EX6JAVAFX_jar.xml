@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="AP1EX6JAVAFX:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AP1EX6JAVAFX_jar</output-path>
+    <root id="archive" name="AP1EX6JAVAFX.jar">
+      <element id="module-output" name="AP1EX6JAVAFX" />
+    </root>
+  </artifact>
+</component>

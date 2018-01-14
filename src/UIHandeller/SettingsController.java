@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.net.URL;
@@ -73,7 +74,7 @@ public class SettingsController implements Initializable {
         inputBuffer.append(settingsCategories.get(settingsCategoriesSize - 1));
 
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/settings.txt");
+            FileOutputStream fileOut = new FileOutputStream("settings.txt");
             // write buffer to settings file
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();
@@ -127,7 +128,9 @@ public class SettingsController implements Initializable {
         size.setItems(possibleSizes);
         try {
             // input the file content to the StringBuffer "input"
-            BufferedReader file = new BufferedReader(new FileReader("src/settings.txt"));
+            File f = new File("settings.txt");
+            String path = f.getAbsolutePath();
+            BufferedReader file = new BufferedReader((new FileReader(path)));
             String line;
             //StringBuffer inputBuffer = new StringBuffer();
             line = file.readLine();

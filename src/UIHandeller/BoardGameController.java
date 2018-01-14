@@ -65,6 +65,7 @@ public class BoardGameController implements Initializable{
         boardGame.setPrefWidth(400);
         boardGame.setPrefHeight(400);
         root.getChildren().add(0, boardGame);
+        // draw possible moves for start player
         List<Pair<Integer, Integer>> possibleMoves = this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent());
         boardGame.draw(possibleMoves);
         this.lblCurrPlayer.setText(this.getCurrPlayerText());
@@ -72,6 +73,7 @@ public class BoardGameController implements Initializable{
         this.lblUserMessages.setText("");
         this.lblScores1.setText("0");
         this.lblScores2.setText("0");
+        // handling window resize
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             double boardNewWidth = newValue.doubleValue() - 120;
             boardGame.setPrefWidth(boardNewWidth);
@@ -114,7 +116,6 @@ public class BoardGameController implements Initializable{
 
                 case Playing:
                     this.boardGame.addWasher(i, j, currentPlayer);
-                    //this.boardGame.draw(possibleMoves);
                     this.swapPlayers();
                     this.boardGame.draw(this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent()));
                     break;
@@ -135,7 +136,7 @@ public class BoardGameController implements Initializable{
     private void updateBoardByUserSettings(){
         try {
             // input the file content to the StringBuffer "input"
-            BufferedReader file = new BufferedReader(new FileReader("src/settings.txt"));
+            BufferedReader file = new BufferedReader(new FileReader("settings.txt"));
             String line;
             line = file.readLine();
             if (line == null) {

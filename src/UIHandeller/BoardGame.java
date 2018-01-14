@@ -88,11 +88,13 @@ public class BoardGame extends GridPane {
      * @param player color of the washer
      */
     public void addWasher(int i, int j, Color player) {
+        // create HBox to put inside the grid cell. This Hbox will contain a circle.
         HBox hbox = new HBox();
         hbox.setPrefWidth(cellWidth);
         hbox.setPrefHeight(cellHeight);
         this.add(hbox, j, i);
         double radius = 0.0;
+        // radius = min(cellWidth / 2 - 7, cellHeight / 2 - 7)
         if (cellWidth < cellHeight) {
             radius = cellWidth / 2 - 7;
         } else {
@@ -121,10 +123,13 @@ public class BoardGame extends GridPane {
         this.cellWidth = (double) width / (double) size;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
+                // draw washer of the Player 1
                 if (board.getCell(i, j) == player1) {
                     this.addWasher(i, j, player1);
+                    // draw washer of Player 2
                 } else if (board.getCell(i, j) == player2) {
                     this.addWasher(i, j, player2);
+                    // empty cells
                 } else {
                     Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.TRANSPARENT);
                     rectangle.setStroke(Color.BLACK);
@@ -139,6 +144,7 @@ public class BoardGame extends GridPane {
 
             }
         }
+        // paints in green cells of possible moves to the current player
         if (possibleMoves != null) {
             for (Pair<Integer, Integer> pair : possibleMoves) {
                 Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LIGHTGREEN);

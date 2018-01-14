@@ -45,7 +45,7 @@ public class MenuController  {
         try {
             Stage stage = (Stage) btnStart.getScene().getWindow();
 
-            Pane root = (Pane) FXMLLoader.load(getClass().getResource("sample.fxml"));
+            Pane root = (Pane) FXMLLoader.load(getClass().getResource("Settings.fxml"));
             Scene scene = new Scene(root, 600, 400);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
