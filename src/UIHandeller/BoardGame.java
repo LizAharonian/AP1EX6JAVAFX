@@ -54,33 +54,6 @@ public class BoardGame extends GridPane {
     }
 
     /**
-     * draw func.
-     * draws the board game.
-     */
-    public void draw() {
-        this.getChildren().clear();
-        double height = this.getPrefHeight() - 20;
-        double width = this.getPrefWidth() - 120;
-        int size = board.getSize();
-        this.cellHeight = (double) height / (double) size ;
-        this.cellWidth = (double) width / (double) size;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (board.getCell(i, j) == player1) {
-                    this.addWasher(i, j, player1);
-                } else if (board.getCell(i, j) == player2) {
-                    this.addWasher(i, j, player2);
-                } else {
-                    Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.TRANSPARENT);
-                    rectangle.setStroke(Color.BLACK);
-                    rectangle.setStrokeWidth(2);
-                    this.add(rectangle, j, i);
-                }
-            }
-        }
-    }
-
-    /**
      * getBoard func.
      *
      * @return the board game
@@ -144,8 +117,6 @@ public class BoardGame extends GridPane {
         double height = this.getPrefHeight() - ((this.board.getSize()/8) * 35);
         double width = this.getPrefWidth() - 120;
         int size = board.getSize();
-        //this.cellHeight = (double) height / (double) size;
-        //height = this.getPrefHeight() - this.cellHeight;
         this.cellHeight = (double) height / (double) size;
         this.cellWidth = (double) width / (double) size;
         for (int i = 0; i < size; i++) {

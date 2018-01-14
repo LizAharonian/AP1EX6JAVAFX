@@ -87,12 +87,11 @@ public class BoardGameController implements Initializable{
     public void handleClick(int i, int j) {
         if (this.boardGame.getBoard().getCell(i, j) == null) {
             IGame.Status status = this.game.playOneTurn(new Pair(i, j));
-            //this.boardGame.draw();
             switch (status) {
                 case GameOver:
                 case Tie:
                     this.boardGame.addWasher(i, j, currentPlayer);
-                    this.boardGame.draw();
+                    this.boardGame.draw(null);
                     String text = this.clientMessagesPrinter.announceWinner(this.board);
                     this.presentAlert(text);
                     this.lblCurrPlayer.setText("");
