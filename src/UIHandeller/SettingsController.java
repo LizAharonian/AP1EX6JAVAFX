@@ -23,6 +23,10 @@ import javafx.stage.Stage;
  */
 public class SettingsController implements Initializable {
     //members
+    private final int menuWindowWidth = 600;
+    private final int menuWindowHeight = 400;
+    private final int minimalBoardSize = 4;
+    private final int maximalBoardSize = 20;
     @FXML
     private ColorPicker cp1;
     @FXML
@@ -86,7 +90,7 @@ public class SettingsController implements Initializable {
         try {
             Stage stage = (Stage) btnDone.getScene().getWindow();
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, menuWindowWidth, menuWindowHeight);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
@@ -104,7 +108,7 @@ public class SettingsController implements Initializable {
         try {
             Stage stage = (Stage) btnBack.getScene().getWindow();
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, menuWindowWidth, menuWindowHeight);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
@@ -122,17 +126,23 @@ public class SettingsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         whoStarts.setItems(FXCollections.observableArrayList("Player 1", "Player 2"));
         ObservableList possibleSizes = FXCollections.observableArrayList();
-        for (int i = 4; i <= 20; i++) {
+        for (int i = minimalBoardSize; i <= maximalBoardSize; i++) {
             possibleSizes.add(Integer.toString(i));
         }
         size.setItems(possibleSizes);
         try {
             // input the file content to the StringBuffer "input"
             File f = new File("settings.txt");
+            if (!f.exists()) {
+                SettingsController.createDefaultSettingsFile();
+                f = new File("settings.txt");
+                if (!f.exists()) {
+                    throw new Exception("Problem reading file.");
+                }
+            }
             String path = f.getAbsolutePath();
             BufferedReader file = new BufferedReader((new FileReader(path)));
             String line;
-            //StringBuffer inputBuffer = new StringBuffer();
             line = file.readLine();
             if (line == null) {
                 throw new Exception("Empty File");
@@ -150,6 +160,27 @@ public class SettingsController implements Initializable {
             file.close();
         } catch (Exception e) {
             System.out.println("Problem reading file.");
+        }
+    }
+
+    /**
+     * creates default settings file:
+     * Player 1 color - Black
+     * Player 2 color - white
+     * Start player - Player 1
+     * Board size - 8
+     */
+    public static void createDefaultSettingsFile() {
+        StringBuffer inputBuffer = new StringBuffer();
+        inputBuffer.append("#FFFFFF,#000000,Player 1,8");
+        try {
+            FileOutputStream fileOut = new FileOutputStream("settings.txt");
+            // write buffer to settings file
+            fileOut.write(inputBuffer.toString().getBytes());
+            fileOut.close();
+        } catch (Exception e) {
+            System.out.println("Problem writing file.");
+            System.exit(1);
         }
     }
 }

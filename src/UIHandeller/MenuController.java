@@ -14,6 +14,11 @@ import javafx.scene.Scene;
 public class MenuController  {
 
     //members
+    private final int settingsWindowWidth = 600;
+    private final int settingsWindowHeight = 400;
+    private final int gameWindowWidth = 700;
+    private final int getGameWindowHeight = 400;
+
     @FXML
     private Button btnStart;
 
@@ -27,7 +32,7 @@ public class MenuController  {
 
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("BoardGame.fxml"));
-            Scene scene = new Scene(root, 700, 400);
+            Scene scene = new Scene(root, gameWindowWidth, getGameWindowHeight);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
@@ -46,7 +51,7 @@ public class MenuController  {
             Stage stage = (Stage) btnStart.getScene().getWindow();
 
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Settings.fxml"));
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, settingsWindowWidth, settingsWindowHeight);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();

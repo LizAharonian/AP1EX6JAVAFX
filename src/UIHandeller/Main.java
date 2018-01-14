@@ -10,6 +10,8 @@ import javafx.stage.Stage;
  * Main class.
  */
 public class Main extends Application {
+    private final int width = 600;
+    private final int height = 400;
     /**
      * start func - runs the UI.
      * @param primaryStage - Stage obj.
@@ -18,7 +20,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            Scene scene = new Scene(root,600,400);
+            Scene scene = new Scene(root,width,height);
             primaryStage.setTitle("Reversi Game");
             primaryStage.setScene(scene);
             primaryStage.show();

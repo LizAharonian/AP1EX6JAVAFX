@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
 import java.util.List;
@@ -48,6 +49,11 @@ public class BoardGameController implements Initializable{
     private IGame game;
     private Board board;
     ClickListener clickListener;
+    private final int clientMessagesColumnWidth = 120;
+    private final int boardWidth = 400;
+    private final int boardHeight = 400;
+    private final int menuWindowWidth = 600;
+    private final int menuWindowHeight = 400;
 
     /**
      * initialize func.
@@ -62,8 +68,8 @@ public class BoardGameController implements Initializable{
         this.clickListener = new ClickListener(this);
         this.boardGame = new BoardGame(board,size, player1, player2,clickListener);
         this.clientMessagesPrinter = new ClientMessagesPrinter(player1, player2);
-        boardGame.setPrefWidth(400);
-        boardGame.setPrefHeight(400);
+        boardGame.setPrefWidth(boardWidth);
+        boardGame.setPrefHeight(boardHeight);
         root.getChildren().add(0, boardGame);
         // draw possible moves for start player
         List<Pair<Integer, Integer>> possibleMoves = this.game.getGameLogic().possibleMoves(currentPlayer, game.getOpponent());
@@ -75,7 +81,7 @@ public class BoardGameController implements Initializable{
         this.lblScores2.setText("0");
         // handling window resize
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double boardNewWidth = newValue.doubleValue() - 120;
+            double boardNewWidth = newValue.doubleValue() - clientMessagesColumnWidth;
             boardGame.setPrefWidth(boardNewWidth);
             boardGame.draw(possibleMoves);
         });
@@ -136,12 +142,15 @@ public class BoardGameController implements Initializable{
     private void updateBoardByUserSettings(){
         try {
             // input the file content to the StringBuffer "input"
-            BufferedReader file = new BufferedReader(new FileReader("settings.txt"));
+            BufferedReader file = null;
+            try {
+                file = new BufferedReader(new FileReader("settings.txt"));
+            } catch (Exception ex) {
+                SettingsController.createDefaultSettingsFile();
+                file = new BufferedReader(new FileReader("settings.txt"));
+            }
             String line;
             line = file.readLine();
-            if (line == null) {
-                throw new Exception("Empty File");
-            }
             String settingsCategories[] = line.split(",");
             // four settings categories: Color of player 1, Color of player 2, Start player and Board size
             if (settingsCategories.length != 4) {
@@ -205,7 +214,7 @@ public class BoardGameController implements Initializable{
         try {
             Stage stage = (Stage) btnEndGame.getScene().getWindow();
             Pane root = (Pane) FXMLLoader.load(getClass().getResource("Menu.fxml"));
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, menuWindowWidth, menuWindowHeight);
             stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();

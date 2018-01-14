@@ -3,7 +3,6 @@ package UIHandeller;
 import ReversiFiles.Board;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -11,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
-import org.w3c.dom.css.Rect;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +26,11 @@ public class BoardGame extends GridPane {
     private Color player1;
     private Color player2;
     private ClickListener clickListener;
-
+    private final int distanceFromCellBorders = 7;
+    private final int heightDivider = 8;
+    private final int heightMultiplier = 35;
+    private final int clientMessagesColumnWidth = 120;
+    private final int storkeRectangleWidth = 2;
     /**
      * constructor.
      *
@@ -94,16 +96,15 @@ public class BoardGame extends GridPane {
         hbox.setPrefHeight(cellHeight);
         this.add(hbox, j, i);
         double radius = 0.0;
-        // radius = min(cellWidth / 2 - 7, cellHeight / 2 - 7)
         if (cellWidth < cellHeight) {
-            radius = cellWidth / 2 - 7;
+            radius = cellWidth / 2 - distanceFromCellBorders;
         } else {
-            radius = cellHeight / 2 - 7;
+            radius = cellHeight / 2 - distanceFromCellBorders;
         }
         Circle circle = new Circle(radius, player);
         Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.TRANSPARENT);
         rectangle.setStroke(Color.BLACK);
-        rectangle.setStrokeWidth(2);
+        rectangle.setStrokeWidth(storkeRectangleWidth);
         hbox.getChildren().add(circle);
         hbox.setAlignment(Pos.CENTER);
         this.add(rectangle, j, i);
@@ -116,8 +117,9 @@ public class BoardGame extends GridPane {
      */
     public void draw(List<Pair<Integer, Integer>> possibleMoves) {
         this.getChildren().clear();
-        double height = this.getPrefHeight() - ((this.board.getSize()/8) * 35);
-        double width = this.getPrefWidth() - 120;
+        // fix height length
+        double height = this.getPrefHeight() - ((this.board.getSize()/heightDivider) * heightMultiplier);
+        double width = this.getPrefWidth() - clientMessagesColumnWidth;
         int size = board.getSize();
         this.cellHeight = (double) height / (double) size;
         this.cellWidth = (double) width / (double) size;
@@ -133,7 +135,7 @@ public class BoardGame extends GridPane {
                 } else {
                     Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.TRANSPARENT);
                     rectangle.setStroke(Color.BLACK);
-                    rectangle.setStrokeWidth(2);
+                    rectangle.setStrokeWidth(storkeRectangleWidth);
                     this.add(rectangle, j, i);
                 }
                 BorderPane pane =new BorderPane();
@@ -149,7 +151,7 @@ public class BoardGame extends GridPane {
             for (Pair<Integer, Integer> pair : possibleMoves) {
                 Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LIGHTGREEN);
                 rectangle.setStroke(Color.BLACK);
-                rectangle.setStrokeWidth(2);
+                rectangle.setStrokeWidth(storkeRectangleWidth);
                 this.add(rectangle, pair.getValue(), pair.getKey());
                 BorderPane pane =new BorderPane();
                 this.add(pane, pair.getValue(),pair.getKey());
