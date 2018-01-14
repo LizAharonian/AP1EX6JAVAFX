@@ -3,6 +3,7 @@ package UIHandeller;
 import ReversiFiles.Board;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -148,16 +149,26 @@ public class BoardGame extends GridPane {
         }
         // paints in green cells of possible moves to the current player
         if (possibleMoves != null) {
-            for (Pair<Integer, Integer> pair : possibleMoves) {
-                Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LIGHTGREEN);
-                rectangle.setStroke(Color.BLACK);
-                rectangle.setStrokeWidth(storkeRectangleWidth);
-                this.add(rectangle, pair.getValue(), pair.getKey());
-                BorderPane pane =new BorderPane();
-                this.add(pane, pair.getValue(),pair.getKey());
-                final int ii =pair.getKey();
-                final int jj = pair.getValue();
-                pane.setOnMouseClicked(event -> {this.clickListener.clickEvent(ii,jj);});
+            if(possibleMoves.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Please press on board to continue!");
+                alert.showAndWait();
+            }else {
+                for (Pair<Integer, Integer> pair : possibleMoves) {
+                    Rectangle rectangle = new Rectangle(cellWidth, cellHeight, Color.LIGHTGREEN);
+                    rectangle.setStroke(Color.BLACK);
+                    rectangle.setStrokeWidth(storkeRectangleWidth);
+                    this.add(rectangle, pair.getValue(), pair.getKey());
+                    BorderPane pane = new BorderPane();
+                    this.add(pane, pair.getValue(), pair.getKey());
+                    final int ii = pair.getKey();
+                    final int jj = pair.getValue();
+                    pane.setOnMouseClicked(event -> {
+                        this.clickListener.clickEvent(ii, jj);
+                    });
+                }
 
             }
         }
